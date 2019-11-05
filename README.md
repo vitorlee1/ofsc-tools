@@ -13,5 +13,5 @@ get_activities.py [-h] [--verbose {0,1,2,3}] [--limit LIMIT]
 
     dateTo:  end date (format: yyyy-mm-dd)
 
-    output: CSV file (default is outout.csv)
+    output: CSV file (default is output.csv)
 ```
