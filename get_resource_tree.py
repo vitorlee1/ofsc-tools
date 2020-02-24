@@ -15,6 +15,7 @@ parser.add_argument("--instance", type=str, required=True)
 parser.add_argument("--clientID", type=str, required=True)
 parser.add_argument("--secret", type=str, required=True)
 parser.add_argument("--parent_resource", type=str, required=True)
+parser.add_argument("--fields", type=str,  default="resourceId,resourceType,parentResourceId,status")
 args = parser.parse_args()
 
 
@@ -25,12 +26,13 @@ clientID = args.clientID
 companyName = args.instance
 resource_id=args.parent_resource
 secret=args.secret
+fields=args.fields
 # Calculate Authorization
 mypass = base64.b64encode(bytes(clientID+"@"+companyName+":"+secret, 'utf-8'))
 headers["Authorization"] = "Basic "+mypass.decode('utf-8')
 params = {
     'offset' : '0' ,
-    'fields' : 'resourceId,resourceType,parentResourceId,status'
+    'fields' : fields
 }
 response = requests.get('https://api.etadirect.com/rest/ofscCore/v1/resources/'+str(resource_id)+'/descendants', headers=headers, params=params)
 
