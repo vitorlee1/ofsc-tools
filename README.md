@@ -14,4 +14,20 @@ get_activities.py [-h] [--verbose {0,1,2,3}] [--limit LIMIT]
     dateTo:  end date (format: yyyy-mm-dd)
 
     output: CSV file (default is output.csv)
+
+
+get_resource_tree.py [--output_json  FILE_JSON_OUTPUT ] [--output_csv FILE_CSV_OUTPUT]
+                    --instance --clientID --secret --parent_resource
+    output_json: json output file ( default is result.json )
+
+    output_csv: csv output file  ( default is result.csv )
+
+    instance:  instance name
+
+    clientID:  client ID
+
+    secret: secret
+
+    parent_resource : external ID of the parent resource
+
 ```
