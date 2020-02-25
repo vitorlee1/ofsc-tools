@@ -61,7 +61,13 @@ with open(args.output_json, 'w') as json_file:
         json_file.write(newJson)
 json_file.close()
 csv_file = open(args.output_csv, 'w')
-csv_file.write('resourceId,resourceType,parentResourceId,status\n')
+csv_file.write(fields+'\n')
+fieldsArray = fields.split(",")
+
+
 for item in final_items_list:
-    csv_file.write(str(item['resourceId'])+","+str(item['resourceType'])+","+str(item['parentResourceId'])+","+str(item['status'])+"\n")
+    line=''
+    for field in fieldsArray:
+        line=line+str(item[field])+','
+    csv_file.write(line+"\n")
 csv_file.close()
