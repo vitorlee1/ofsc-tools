@@ -42,7 +42,7 @@ offset=response_json['offset']
 final_items_list=response_json['items']
 
 
-while offset + 100 > total_results :
+while offset + 100 < total_results :
     print('Still pending resources Total Results : {} - Offset : {} - List size {}'.format(total_results, offset, len(final_items_list) ))
     offset=offset+100
     params['offset'] = offset
