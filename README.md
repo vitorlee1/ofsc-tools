@@ -11,6 +11,9 @@ get_activities.py [-h] [--verbose {0,1,2,3}] [--limit LIMIT]
     dateTo:  end date (format: yyyy-mm-dd)
     output: CSV file (default is output.csv
 
+```
+---
+```
 
 get_resource_tree.py [--output_json  FILE_JSON_OUTPUT ] [--output_csv FILE_CSV_OUTPUT]
                     --instance --clientID --secret --parent_resource -- fields
@@ -21,7 +24,9 @@ get_resource_tree.py [--output_json  FILE_JSON_OUTPUT ] [--output_csv FILE_CSV_O
     secret: secret
     parent_resource : external ID of the parent resource
     fields : fields to include on the response ( default is resourceId,resourceType,parentResourceId,status)
-
+```
+---
+```
 
 get_routing_runs.py [-h] [--verbose {0,1,2,3}]
                            [--subscription SUBSCRIPTION] [--page PAGE]
