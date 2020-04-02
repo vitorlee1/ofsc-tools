@@ -31,5 +31,22 @@ get_resource_tree.py [--output_json  FILE_JSON_OUTPUT ] [--output_csv FILE_CSV_O
     parent_resource : external ID of the parent resource
 
     fields : fields to include on the response ( default is resourceId,resourceType,parentResourceId,status)
+--------
+get_routing_runs.py [-h] [--verbose {0,1,2,3}]
+                           [--subscription SUBSCRIPTION] [--page PAGE]
+                           [--since SINCE] [--limit LIMIT] [--output OUTPUT]
+                           [--period PERIOD]
 
-```
+Routing event capture. Uses .env.secret file or .env file for credentials.
+Will append to output file if it exists.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --verbose {0,1,2,3}
+  --subscription SUBSCRIPTION
+  --page PAGE           initial page
+  --since SINCE         Format: YYYY-MM-DD HH:MM
+  --limit LIMIT         limit the number of loops. Default is 9999
+  --output OUTPUT       Output file. Default is output-routing.csv
+  --period PERIOD       Time in seconds between event reads. Default is 30
+
