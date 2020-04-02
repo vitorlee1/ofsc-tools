@@ -121,3 +121,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.pub
+*.crt
+*.csr
+jwt-key
+jwt-key.2
+*.secret
+*.sample
+*.csv
