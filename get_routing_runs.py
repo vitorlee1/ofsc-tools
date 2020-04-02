@@ -125,6 +125,6 @@ def collect_routing_events():
 
 
 
-print(routing_events_headers)
+
 init_script()
 collect_routing_events()
