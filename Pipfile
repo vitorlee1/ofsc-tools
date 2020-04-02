@@ -9,6 +9,9 @@ verify_ssl = true
 python-dotenv = "*"
 requests = "*"
 ofsc = "*"
+pyjwt = "*"
+crypto = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.7"
