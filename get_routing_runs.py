@@ -16,7 +16,7 @@ def init_script():
     # Parse arguments
     global args
     parser = argparse.ArgumentParser(description="Routing event capture. Uses .env.secret file or .env file for credentials. Will append to output file if it exists.")
-    parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
+    parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1, help="Generation Debug Messages")
     parser.add_argument("--subscription", type=str)
     parser.add_argument("--page", type=str, help="initial page")
     parser.add_argument("--since", type=str, help="Format: YYYY-MM-DD HH:MM")
