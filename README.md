@@ -15,6 +15,7 @@ get_activities.py [-h] [--verbose {0,1,2,3}] [--limit LIMIT]
 ---
 ```
 
+
 get_resource_tree.py [-h] --parent_resource PARENT_RESOURCE
                             [--fields FIELDS] [--output_json OUTPUT_JSON]
                             [--output_csv OUTPUT_CSV] [--verbose {0,1,2,3}]
@@ -31,6 +32,8 @@ optional arguments:
   --output_csv OUTPUT_CSV
                         Outputfile for CSV format
   --verbose {0,1,2,3}   Additional messages. 0 is None, 3 is detailed debug```
+
+```
 ---
 ```
 
@@ -52,6 +55,3 @@ optional arguments:
   --output OUTPUT       Output file. Default is output-routing.csv
   --period PERIOD       Time in seconds between event reads. Default is 30
 
-
-
-```
