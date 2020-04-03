@@ -15,15 +15,24 @@ get_activities.py [-h] [--verbose {0,1,2,3}] [--limit LIMIT]
 ---
 ```
 
-get_resource_tree.py [--output_json  FILE_JSON_OUTPUT ] [--output_csv FILE_CSV_OUTPUT]
-                    --instance --clientID --secret --parent_resource -- fields
-    output_json: json output file ( default is result.json )
-    output_csv: csv output file  ( default is result.csv )
-    instance:  instance name
-    clientID:  client ID
-    secret: secret
-    parent_resource : external ID of the parent resource
-    fields : fields to include on the response ( default is resourceId,resourceType,parentResourceId,status)
+
+get_resource_tree.py [-h] --parent_resource PARENT_RESOURCE
+                            [--fields FIELDS] [--output_json OUTPUT_JSON]
+                            [--output_csv OUTPUT_CSV] [--verbose {0,1,2,3}]
+
+Extract resource tree form OFSC instance
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --parent_resource PARENT_RESOURCE
+                        Root resource to extract
+  --fields FIELDS       Specify fields to extract
+  --output_json OUTPUT_JSON
+                        Output file for JSON format
+  --output_csv OUTPUT_CSV
+                        Outputfile for CSV format
+  --verbose {0,1,2,3}   Additional messages. 0 is None, 3 is detailed debug```
+
 ```
 ---
 ```
