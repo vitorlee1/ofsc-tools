@@ -3,19 +3,19 @@ import argparse, pprint, logging
 from config import Config
 from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Extract resource tree form OFSC instance")
 
 def init_script():
     # Parse arguments
     global args
-    parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
-    parser.add_argument("--output_json", type=str, default="result.json")
-    parser.add_argument("--output_csv", type=str, default="result.csv")
+    parser.add_argument("--parent_resource", type=str, required=True, help = "Root resource to extract")
+    parser.add_argument("--fields", type=str,  default=None, help="Specify fields to extract")
+    parser.add_argument("--output_json", type=str, default="result.json" ,help="Output file for JSON format")
+    parser.add_argument("--output_csv", type=str, default="result.csv" ,help="Outputfile for CSV format")
+    parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1, help = "Additional messages. 0 is None, 3 is detailed debug")
     # parser.add_argument("--instance", type=str, required=True)
     # parser.add_argument("--clientID", type=str, required=True)
     # parser.add_argument("--secret", type=str, required=True)
-    parser.add_argument("--parent_resource", type=str, required=True)
-    parser.add_argument("--fields", type=str,  default=None)
     args = parser.parse_args()
 
     global pp
