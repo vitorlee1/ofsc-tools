@@ -60,7 +60,7 @@ def init_script():
             page = response.json()["nextPage"]
             logger.warning("Created subscription {}".format(subscription))
         else:
-            logging,error("ERROR: {}".format(response.json()))
+            logging.error("ERROR: {}".format(response.json()))
             exit(-1)
     else:
         subscription = args.subscription
@@ -79,7 +79,7 @@ def init_script():
             if response.status_code == 200:
                 page = response.json()["nextPage"]
             else:
-                logging,error("ERROR: {}".format(response.json()))
+                logging.error("ERROR: {}".format(response.json()))
                 exit(-1)
 
 
