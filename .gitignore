@@ -129,3 +129,4 @@ jwt-key.2
 *.secret
 *.sample
 *.csv
+*.json
