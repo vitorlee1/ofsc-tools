@@ -9,7 +9,7 @@ import csv
 from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
 # Based on Events v1:
-routing_events_header_text = "time,user,routingPlan,routingPlanId,result,startType,type,resourceId,routingRunId,targetDate,numberOfDays,routingProfile,routingProfileId,routingRunDuration,activitiesMatched,activitiesRouted,activitiesNotRouted,resourcesMatched,resourcesUsed,averageWorkingTime,averageOverTime,averageTravelTime,averageDownTime"
+routing_events_header_text = "time,user,routingPlan,routingPlanId,result,startType,type,resourceId,routingRunId,targetDate,numberOfDays,routingProfile,routingProfileId,routingRunDuration,activitiesMatched,activitiesRouted,activitiesNotRouted,resourcesMatched,resourcesUsed,averageWorkingTime,averageOverTime,averageTravelTime,averageDownTime,message"
 routing_events_headers = routing_events_header_text.split(",")
 
 def init_script():
