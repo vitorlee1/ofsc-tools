@@ -15,6 +15,7 @@ parser.add_argument("--instance", type=str, required=True)
 parser.add_argument("--clientID", type=str, required=True)
 parser.add_argument("--secret", type=str, required=True)
 parser.add_argument("--parent_resource", type=str, required=True)
+parser.add_argument("--expand", type=str, default="")
 parser.add_argument("--fields", type=str,  default="resourceId,resourceType,parentResourceId,status")
 args = parser.parse_args()
 
@@ -27,13 +28,21 @@ companyName = args.instance
 resource_id=args.parent_resource
 secret=args.secret
 fields=args.fields
+expand=args.expand
 # Calculate Authorization
 mypass = base64.b64encode(bytes(clientID+"@"+companyName+":"+secret, 'utf-8'))
 headers["Authorization"] = "Basic "+mypass.decode('utf-8')
-params = {
-    'offset' : '0' ,
-    'fields' : fields
-}
+if expand == '' :
+    params = {
+        'offset' : '0' ,
+        'fields' : fields
+    }
+else :
+    params = {
+        'offset' : '0' ,
+        'fields' : fields,
+        'expand' : expand
+    }
 response = requests.get('https://api.etadirect.com/rest/ofscCore/v1/resources/'+str(resource_id)+'/descendants', headers=headers, params=params)
 
 response_json=response.json()
@@ -61,13 +70,24 @@ with open(args.output_json, 'w') as json_file:
         json_file.write(newJson)
 json_file.close()
 csv_file = open(args.output_csv, 'w')
-csv_file.write(fields+'\n')
+csv_file.write(fields+','+expand+'\n')
 fieldsArray = fields.split(",")
+expandArray = expand.split(",")
 
 
 for item in final_items_list:
     line=''
     for field in fieldsArray:
         line=line+str(item[field])+','
+    for expandName in expandArray:
+        if expandName != '':
+            if 'items' in item[expandName]:
+                expandList=item[expandName]['items']
+                lineExpand=''
+                for expanditem in expandList:
+                    print(expanditem)
+                    lineExpand=lineExpand+str(expanditem['workSkill'])+'#'
+                if ( lineExpand != '' ) :
+                    line=line+lineExpand+','
     csv_file.write(line+"\n")
 csv_file.close()
