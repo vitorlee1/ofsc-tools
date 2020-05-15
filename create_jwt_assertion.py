@@ -7,7 +7,7 @@ import jwt, datetime, argparse, json
 # }
 
 def generate_assertion(key, payload):
-    payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
+    payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(days=365)
     encoded = jwt.encode(payload, private_key, algorithm='RS256')
     return encoded
 
