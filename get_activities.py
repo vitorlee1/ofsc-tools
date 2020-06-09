@@ -6,9 +6,20 @@ import csv
 
 from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
+
+
+
+
 def init_script():
     # Parse arguments
     global args
+    standard_activity_fields = "activityId,date,apptNumber,recordType,status,activityType,workZone,"+ \
+        "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
+        "country_code,duration,travelTime,longitude,latitude,startTime"
+    routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
+    global activity_fields 
+    activity_fields = standard_activity_fields+","+routing_fields
+    # TODO : add custom_fields argument
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
     parser.add_argument("--limit", type=int,  default = 10)
@@ -58,12 +69,7 @@ def get_activities(root, initial_offset, limit, date_from, date_to):
             "includeChildren": "all",
             #"includeNonScheduled": "true",
             #"q":"stateProvince=='MEX.'",
-            "fields":"activityId,date,apptNumber,"+
-                      "recordType,status,activityType,workZone,timeSlot,"+
-                      "slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,"+
-                      "country_code,duration,travelTime,longitude,latitude,"+
-                      "startTime",
-
+            "fields": activity_fields,
             "offset" : offset,
             "limit": limit}
         response = instance.get_activities(response_type=FULL_RESPONSE, params=request_params)
@@ -87,10 +93,10 @@ def get_activities(root, initial_offset, limit, date_from, date_to):
     return items
 
 def write_csv(items, filename):
-    csv_columns = items[0].keys()
+    activity_headers = activity_fields.split(",")
     try:
         with open(filename, 'w') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+            writer = csv.DictWriter(csvfile, fieldnames=activity_headers)
             writer.writeheader()
             for data in items:
                 writer.writerow(data)
