@@ -12,6 +12,7 @@ ofsc = "*"
 pyjwt = "*"
 crypto = "*"
 cryptography = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"

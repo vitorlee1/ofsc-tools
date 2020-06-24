@@ -18,7 +18,6 @@ def init_script():
         "country_code,duration,travelTime,longitude,latitude,startTime"
     routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
     global activity_fields 
-    activity_fields = standard_activity_fields+","+routing_fields
     # TODO : add custom_fields argument
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
@@ -27,6 +26,7 @@ def init_script():
     parser.add_argument("--root", type=str, required=True)
     parser.add_argument("--dateFrom", type=str, required=True)
     parser.add_argument("--dateTo", type=str, required=True)
+    parser.add_argument("--routing", help="extract routing analisis fields", action='store_true')
     parser.add_argument("--output", type=str, default = "output.csv")
     args = parser.parse_args()
 
@@ -49,6 +49,13 @@ def init_script():
     instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, companyName=Config.OFSC_COMPANY)
     logger.info("Creating instance connection for {} {}".format(Config.OFSC_COMPANY, Config.OFSC_CLIENT_ID))
 
+    # Select fields
+    if args.routing:
+        logger.info("Adding routing arguments")
+        activity_fields = standard_activity_fields+","+routing_fields
+    else:
+        activity_fields = standard_activity_fields
+
 def connectivity_test():
     logger.info("TEST 000: connectivity")
     response = instance.get_subscriptions(response_type=FULL_RESPONSE)
@@ -57,8 +64,11 @@ def connectivity_test():
     return response.elapsed
 
 def get_activities(root, initial_offset, limit, date_from, date_to):
+    #TODO: Move file writing to go by stages and save progress
+    #TODO: Confirm file overwriting if needed
     items = []
     logger.info("003: Retrieve all activities - include non-scheduled")
+    logger.info("003: Fields used: {}".format(activity_fields))
     hasMore = True
     offset = initial_offset
     while hasMore:
