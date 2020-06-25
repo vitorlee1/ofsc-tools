@@ -2,8 +2,10 @@ import logging, json, pprint
 import argparse
 import time
 import pandas as pd 
+import numpy as np
 
 def init_script():
+    #TODO Add option to start from an intermediate step
     # Parse arguments
     global args
     parser = argparse.ArgumentParser()
@@ -36,7 +38,9 @@ def init_script():
     filteredByType = 0 
     anomalies = 0
 
-
+def show_header(activities):
+    pd.set_option('display.max_columns', None)
+    print(activities.head)
 
 def load_activities():
     initialRecords = 0
@@ -60,13 +64,12 @@ def load_activities():
     return activities
 
 def filter_activities(activities):
+    # TODO: Set status as a category
     logger.info("STEP 2: filter records")
     filtered_activities = activities[((activities["status"]=="completed") | (activities["status"]=="notdone")) & (activities["workZone"].notnull())]
 
     totalActivities = len(filtered_activities)
     logger.info("...Total valid activities: {} ({} filtered by type)".format(totalActivities, filteredByType))
-    logger.info("...Autorouted: {} ({:2f}%)  Non Touched: {}  ({:.2f}%)".format(autoRouted, 100*autoRouted/totalActivities, nonTouched, 100*nonTouched/totalActivities))
-    logger.info("...Anomalies: {}".format(anomalies))
     return filtered_activities
 
 
@@ -74,7 +77,7 @@ def calculate_routing_class(row):
     try:
         if row["autoRoutedToDate"]!="":
             if row["firstManualOperation"]!="":
-                return "Touched"
+                return "Modified"
             else:
                 return "Auto"
         else:
@@ -90,13 +93,30 @@ def calculate_routing_class(row):
 def expand_activities(activities):
     logger.info("STEP 3: enrich records")
     activities["routingGroup"]  = activities.apply(calculate_routing_class, axis=1)
+    activities["date"] = pd.to_datetime(activities["date"])
+    activities["week"] = activities["date"].dt.week
     return activities
+
+
+def slice_activities(activities):
+    logger.info ("STEP 4: slice columns")
+    selected_columns = ['week', 'apptNumber', 'activityType', 'workZone','timeSlot', 'travelTime', 'routingGroup']
+    return activities[selected_columns]
+    
+def aggregate_data(activities):
+    logger.info ("STEP 4: aggregate and pivot")
+    dataset = activities.groupby(['week', 'routingGroup']).aggregate({ 'apptNumber': 'size'}).reset_index()
+    # Pivot to create Routing Categories table
+    dataset = pd.pivot_table(dataset, index="week", columns = "routingGroup", values="apptNumber", aggfunc=np.sum, fill_value=0)    
+    return dataset
 
 init_script()
 dataset = load_activities()
-filtered_dataset = filter_activities(dataset)
-expanded_dataset = expand_activities(filtered_dataset)
-expanded_dataset.to_csv(args.output, index=False)
+filtered_dataset = filter_activities(dataset)           # Remove unwanted records
+expanded_dataset = expand_activities(filtered_dataset)  # Add extra columns
+sliced_dataset = slice_activities(expanded_dataset)     # Reduce the number of columns
+final_dataset = aggregate_data(sliced_dataset)          # Aggregate and pivot data
+final_dataset.to_csv(args.output)
 
 
 
