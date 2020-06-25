@@ -13,6 +13,7 @@ pyjwt = "*"
 crypto = "*"
 cryptography = "*"
 pandas = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.7"
