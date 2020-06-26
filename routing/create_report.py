@@ -18,7 +18,7 @@ def init_script():
     parser.add_argument("--verbose", type=int, help="Verbosity Level 0,1,2,3 (default is 1)",  choices = { 0, 1, 2, 3}, default = 1)
     parser.add_argument("--output", type=str, help="output file to be used (default is report.xlsx) ", default = "report.xlsx")
     parser.add_argument("--routing_input_file",  type=str, help="CSV files to be processed. Default is routing_output.csv", default = "routing_output.csv")
-    parser.add_argument("-template", type=str, help="Excel template to use. Default is routing_template.xlsx", default = "routing_template.xlsx")
+    parser.add_argument("-template", type=str, help="Excel template to use. Default is report_template.xlsx", default = "report_template.xlsx")
     args = parser.parse_args()
 
     # create logger
