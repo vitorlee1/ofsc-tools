@@ -46,7 +46,8 @@ for i in range(current_month-args.months+1,current_month+1):
     dfrom="{}-{:02}".format(smonth, start_day)
     dto="{}-{:02}".format(smonth, end_day)
     dfile="{}-{}".format(Config.OFSC_COMPANY, smonth)
-    os.system("python ../get_activities.py --verbose {} --root={} --dateFrom={} --dateTo={} --output {}.csv --routing --limit 5000".format(args.verbose, Config.OFSC_ROOT, dfrom, dto,dfile))
+    os.system("python ../get_activities.py --verbose {} --root={} --dateFrom={} --dateTo={} --output {}.csv --routing --custom --limit 5000".format(args.verbose, Config.OFSC_ROOT, dfrom, dto,dfile))
+    logger.info("python ../get_activities.py --verbose {} --root={} --dateFrom={} --dateTo={} --output {}.csv --routing --custom --limit 5000".format(args.verbose, Config.OFSC_ROOT, dfrom, dto,dfile))
 
 # Create aggregated table
 os.system("echo =============================================================================")
