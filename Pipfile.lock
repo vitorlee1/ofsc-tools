@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "716f595b3ee14f11a441d9629a34cd2b07d2691fd79748b2324c0711a5c2fe1a"
+            "sha256": "f2c49f5bf2c1211179a1d64096aa4c3b446a864efba4058d6d05a7fd2d5cf0f8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -109,12 +109,20 @@
             ],
             "version": "==1.0.1"
         },
+        "flatten-dict": {
+            "hashes": [
+                "sha256:0ccc43f15c7c84c5ef387ad19254f6769a32d170313a1bcbf4ce582089313d7e",
+                "sha256:96038f9a0a09dca205112ae890e1f2159cfdf2af173397b2aa93d1bb9d055890"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0"
+        },
         "idna": {
             "hashes": [
-                "sha256:7588d1c14ae4c77d74036e8c22ff447b26d0fde8f007354fd48a7814db15b7cb",
-                "sha256:a068a21ceac8a4d63dbfd964670474107f541babbd2250d61922f029858365fa"
+                "sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6",
+                "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"
             ],
-            "version": "==2.9"
+            "version": "==2.10"
         },
         "isort": {
             "hashes": [
@@ -211,7 +219,8 @@
         },
         "openpyxl": {
             "hashes": [
-                "sha256:6e62f058d19b09b95d20ebfbfb04857ad08d0833190516c1660675f699c6186f"
+                "sha256:6e62f058d19b09b95d20ebfbfb04857ad08d0833190516c1660675f699c6186f",
+                "sha256:d88dd1480668019684c66cfff3e52a5de4ed41e9df5dd52e008cbf27af0dbf87"
             ],
             "index": "pypi",
             "version": "==3.0.4"
@@ -237,6 +246,13 @@
             ],
             "index": "pypi",
             "version": "==1.0.5"
+        },
+        "pathlib2": {
+            "hashes": [
+                "sha256:0ec8205a157c80d7acc301c0b18fbd5d44fe655968f5d947b6ecef5290fc35db",
+                "sha256:6cd9a47b597b37cc57de1c05e56fb1a1c9cc9fab04fe78c29acd090418529868"
+            ],
+            "version": "==2.3.5"
         },
         "pycparser": {
             "hashes": [

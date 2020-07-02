@@ -15,6 +15,7 @@ cryptography = "*"
 pandas = "*"
 openpyxl = "*"
 pylint = "*"
+flatten-dict = "*"
 
 [requires]
 python_version = "3.7"
