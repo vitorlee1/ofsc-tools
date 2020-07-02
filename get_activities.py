@@ -15,7 +15,7 @@ def init_script():
     global args
     standard_activity_fields = "activityId,date,apptNumber,recordType,status,activityType,workZone,"+ \
         "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
-        "country_code,duration,travelTime,longitude,latitude,startTime"
+        "postalCode, country_code,duration,travelTime,longitude,latitude,startTime"
     routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
     global activity_fields 
     # TODO : add custom_fields argument

@@ -13,7 +13,7 @@ def init_script():
     parser.add_argument("--verbose", type=int, help="Verbosity Level 0,1,2,3 (default is 1)",  choices = { 0, 1, 2, 3}, default = 1)
     parser.add_argument("--output", type=str, help="output file to be used (default is routing_output.csv) ", default = "routing_output.csv")
     parser.add_argument("--initial_stage",  type=int, help="Starting stage (choices are 1 (Filter), 2 (Enrich), 3 (Slice), 4 (Aggregate)", choices = {1,2,3,4}, default=1)
-    parser.add_argument("--final_stage", type=int, help="Final stage (choices are 1 (Filter), 2 (Enrich), 3 (Slice), 4 (Aggregate)", choices = {1,2,3,4}, default=4)
+    parser.add_argument("--final_stage", type=int, help="Final stage (choices are 1 (Filter), 2 (Enrich), 3 (Slice), 4 (Aggregate)", choices = {0,1,2,3,4}, default=4)
     parser.add_argument("input_file",  nargs="+", help="CSV files to be processed")
     args = parser.parse_args()
 
