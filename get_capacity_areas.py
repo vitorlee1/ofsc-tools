@@ -3,7 +3,7 @@ import logging, json, pprint
 import argparse
 import time
 import csv
-import requests
+import requests, urllib
 from flatten_dict import flatten
 import pprint
 
@@ -27,7 +27,8 @@ class extendedOFSC(OFSC):
             return response.text
 
     def get_capacity_area (self,label, response_type=FULL_RESPONSE):
-        response = requests.get('https://api.etadirect.com/rest/ofscMetadata/v1/capacityAreas/{}'.format(label), headers=self.headers)
+        encoded_label = urllib.parse.quote_plus(label)
+        response = requests.get('https://api.etadirect.com/rest/ofscMetadata/v1/capacityAreas/{}'.format(encoded_label), headers=self.headers)
         if response_type==FULL_RESPONSE:
             return response
         elif response_type==JSON_RESPONSE:
@@ -85,9 +86,11 @@ def get_capacity_info():
         original_items = response['items']
         items = []
         # Reduce structure and get extra info
-        for item in original_items:
-            result = instance.get_capacity_area(item["label"])
+        for area in original_items:
+            logger.info("Retrieving {}".format(area))
+            result = instance.get_capacity_area(area["label"])
             item = result.json()
+            logger.info(item)
             for definitionLevel in item["configuration"]["definitionLevel"]:
                 item["configuration.definitionLevel.{}".format(definitionLevel)] = True
             new_item=flatten(item, reducer="dot")
