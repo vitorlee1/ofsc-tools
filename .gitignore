@@ -126,7 +126,15 @@ dmypy.json
 *.csr
 jwt-key
 jwt-key.2
+
+
+.DS_Store
+
+# OFSC Tools specific
 *.secret
 *.sample
 *.csv
 *.json
+*.xlsx
+!*template*
+

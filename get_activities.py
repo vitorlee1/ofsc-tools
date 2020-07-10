@@ -6,9 +6,19 @@ import csv
 
 from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
+
+
+
+
 def init_script():
     # Parse arguments
     global args
+    standard_activity_fields = "activityId,date,apptNumber,recordType,status,activityType,workZone,"+ \
+        "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
+        "postalCode,country_code,duration,travelTime,longitude,latitude,startTime"
+    routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
+    global activity_fields 
+    # TODO : add custom_fields argument
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
     parser.add_argument("--limit", type=int,  default = 10)
@@ -16,7 +26,9 @@ def init_script():
     parser.add_argument("--root", type=str, required=True)
     parser.add_argument("--dateFrom", type=str, required=True)
     parser.add_argument("--dateTo", type=str, required=True)
+    parser.add_argument("--routing", help="extract routing analisis fields", action='store_true')
     parser.add_argument("--output", type=str, default = "output.csv")
+    parser.add_argument("--custom_fields", help ="extract also custom fields", action='store_true')
     args = parser.parse_args()
 
     # create logger
@@ -38,6 +50,18 @@ def init_script():
     instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, companyName=Config.OFSC_COMPANY)
     logger.info("Creating instance connection for {} {}".format(Config.OFSC_COMPANY, Config.OFSC_CLIENT_ID))
 
+    # Select fields
+    if args.routing:
+        logger.info("Adding routing arguments")
+        activity_fields = standard_activity_fields+","+routing_fields
+    else:
+        activity_fields = standard_activity_fields
+
+    if args.custom_fields:
+        if len(Config.OFSC_CUSTOM_FIELDS) >0:
+            logger.info("Adding custom fields: {}".format(Config.OFSC_CUSTOM_FIELDS))
+            activity_fields = "{},{}".format(activity_fields,Config.OFSC_CUSTOM_FIELDS)
+
 def connectivity_test():
     logger.info("TEST 000: connectivity")
     response = instance.get_subscriptions(response_type=FULL_RESPONSE)
@@ -46,8 +70,11 @@ def connectivity_test():
     return response.elapsed
 
 def get_activities(root, initial_offset, limit, date_from, date_to):
+    #TODO: Move file writing to go by stages and save progress
+    #TODO: Confirm file overwriting if needed
     items = []
     logger.info("003: Retrieve all activities - include non-scheduled")
+    logger.info("003: Fields used: {}".format(activity_fields))
     hasMore = True
     offset = initial_offset
     while hasMore:
@@ -58,12 +85,7 @@ def get_activities(root, initial_offset, limit, date_from, date_to):
             "includeChildren": "all",
             #"includeNonScheduled": "true",
             #"q":"stateProvince=='MEX.'",
-            "fields":"activityId,date,apptNumber,"+
-                      "recordType,status,activityType,workZone,timeSlot,"+
-                      "slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,"+
-                      "country_code,duration,travelTime,longitude,latitude,"+
-                      "startTime",
-
+            "fields": activity_fields,
             "offset" : offset,
             "limit": limit}
         response = instance.get_activities(response_type=FULL_RESPONSE, params=request_params)
@@ -87,10 +109,10 @@ def get_activities(root, initial_offset, limit, date_from, date_to):
     return items
 
 def write_csv(items, filename):
-    csv_columns = items[0].keys()
+    activity_headers = activity_fields.split(",")
     try:
         with open(filename, 'w') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+            writer = csv.DictWriter(csvfile, fieldnames=activity_headers)
             writer.writeheader()
             for data in items:
                 writer.writerow(data)

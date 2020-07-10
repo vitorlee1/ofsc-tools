@@ -1,0 +1,3 @@
+# Asumes that there is a directory in the parent level that contains {company}.env files
+
+cp ${OFSC_ENV_REPOSITORY}/$1.env ${OFSC_TOOLS_ROOT}/.env.secret
