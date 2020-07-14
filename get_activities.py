@@ -15,7 +15,7 @@ def init_script():
     global args
     standard_activity_fields = "activityId,date,apptNumber,recordType,status,activityType,workZone,"+ \
         "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
-        "postalCode, country_code,duration,travelTime,longitude,latitude,startTime"
+        "postalCode,country_code,duration,travelTime,longitude,latitude,startTime"
     routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
     global activity_fields 
     # TODO : add custom_fields argument
@@ -28,6 +28,7 @@ def init_script():
     parser.add_argument("--dateTo", type=str, required=True)
     parser.add_argument("--routing", help="extract routing analisis fields", action='store_true')
     parser.add_argument("--output", type=str, default = "output.csv")
+    parser.add_argument("--custom_fields", help ="extract also custom fields", action='store_true')
     args = parser.parse_args()
 
     # create logger
@@ -55,6 +56,11 @@ def init_script():
         activity_fields = standard_activity_fields+","+routing_fields
     else:
         activity_fields = standard_activity_fields
+
+    if args.custom_fields:
+        if len(Config.OFSC_CUSTOM_FIELDS) >0:
+            logger.info("Adding custom fields: {}".format(Config.OFSC_CUSTOM_FIELDS))
+            activity_fields = "{},{}".format(activity_fields,Config.OFSC_CUSTOM_FIELDS)
 
 def connectivity_test():
     logger.info("TEST 000: connectivity")
