@@ -51,7 +51,7 @@ with open(args.input_file) as json_file:
             logger.info ("{}={}".format(env, var["value"]))
             env_vars.append ("{}={}\n".format(env, var["value"]))
 
-f = open("{}.env".format(companyName), "w")
+f = open("{}.secret".format(companyName), "w")
 for env_var in env_vars:
     f.writelines(env_var)
 f.close()
