@@ -45,6 +45,8 @@ def init_script():
 
 init_script()
 fields=args.fields
+# (202007 - BTA) Add parent reource
+
 response = instance.get_resource_descendants(args.parent_resource, offset=0, resourceFields=fields, response_type=JSON_RESPONSE)
 logger.debug(pp.pformat(response))
 total_results=response['totalResults']
@@ -61,6 +63,13 @@ while offset + 100 < total_results :
     items=response_json['items']
     final_items_list.extend(items)
     offset=response_json['offset']
+
+# (202007 - BTA) Add parent reource
+#TODO: add fields opion in get_resource
+#response = instance.get_resource(args.parent_resource, resourceFields=fields, response_type=JSON_RESPONSE)
+response = instance.get_resource(args.parent_resource, response_type=JSON_RESPONSE)
+logger.debug(pp.pformat(response))
+final_items_list.append(response)
 
 
 logger.info('NO  pending resources Total Results : {} - Offset : {}- List size {}'.format(total_results, offset, len(final_items_list)))
