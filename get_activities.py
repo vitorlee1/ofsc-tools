@@ -13,12 +13,11 @@ from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
 def init_script():
     # Parse arguments
     global args
-    standard_activity_fields = "activityId,date,apptNumber,recordType,status,activityType,workZone,"+ \
+    standard_activity_fields = "activityId,date,apptNumber,resourceInternalId,recordType,status,activityType,workZone,"+ \
         "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
-        "postalCode,country_code,duration,travelTime,longitude,latitude,startTime"
+        "postalCode,country_code,stateProvince,city,duration,travelTime,longitude,latitude,startTime"
     routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
     global activity_fields 
-    # TODO : add custom_fields argument
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
     parser.add_argument("--limit", type=int,  default = 10)
