@@ -58,7 +58,7 @@ outputFile = open(args.output_csv, 'w')
 fieldList = final_items_list[0]
 del fieldList["links"]
 del fieldList["collaborationGroups"]
-output = csv.DictWriter(outputFile, fieldList.keys(), extrasaction='ignore')
+output = csv.DictWriter(outputFile, fieldList.keys(), quoting=csv.QUOTE_NONNUMERIC, extrasaction='ignore')
 output.writeheader()
 for item in final_items_list:
     output.writerow(item)

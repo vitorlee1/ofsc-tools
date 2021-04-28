@@ -1,7 +1,7 @@
 import json, csv
 import argparse, pprint, logging
 from config import Config
-from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
+from ofsc import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
 parser = argparse.ArgumentParser(description="Extract resource tree form OFSC instance")
 

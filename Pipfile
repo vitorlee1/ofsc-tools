@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 python-dotenv = "*"
 requests = "*"
-ofsc = "*"
+ofsc = ">=1.9"
 pyjwt = "*"
 crypto = "*"
 cryptography = "*"

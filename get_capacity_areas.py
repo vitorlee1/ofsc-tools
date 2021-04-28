@@ -7,7 +7,7 @@ import requests, urllib
 from flatten_dict import flatten
 import pprint
 
-from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
+from ofsc import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
 capacityAreasFields= "label,name,type,status,parent.name,parent.label"
 class extendedOFSC(OFSC):

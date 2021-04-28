@@ -4,7 +4,7 @@ import argparse
 import time
 import csv
 
-from ofsc.core import OFSC, FULL_RESPONSE, JSON_RESPONSE
+from ofsc import OFSC, FULL_RESPONSE, JSON_RESPONSE
 
 
 
