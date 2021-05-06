@@ -1,3 +1,5 @@
+#!python3
+
 from config import Config
 import logging, json, pprint
 import argparse
@@ -15,12 +17,13 @@ def init_script():
     global args
     standard_activity_fields = "activityId,date,apptNumber,resourceInternalId,recordType,status,activityType,workZone,"+ \
         "timeSlot,slaWindowStart,slaWindowEnd,serviceWindowStart,serviceWindowEnd,timeOfBooking,timeOfAssignment,"+\
-        "postalCode,country_code,stateProvince,city,duration,travelTime,longitude,latitude,startTime"
+        "postalCode,country_code,stateProvince,city,duration,travelTime,coordinateAccuracy,longitude,latitude,startTime,"+\
+        "travelEstimationMethod"
     routing_fields = "firstManualOperation,firstManualOperationUser,autoRoutedToDate,autoRoutedToResource"
     global activity_fields 
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", type=int, choices = { 0, 1, 2, 3}, default = 1)
-    parser.add_argument("--limit", type=int,  default = 10)
+    parser.add_argument("--limit", type=int,  default = 5000)
     parser.add_argument("--offset", type=int,  default = 0)
     parser.add_argument("--root", type=str, required=True)
     parser.add_argument("--dateFrom", type=str, required=True)
@@ -46,7 +49,8 @@ def init_script():
     logger.info("Log level is {}".format(args.verbose))
 
     global instance
-    instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, companyName=Config.OFSC_COMPANY)
+    instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, 
+                    companyName=Config.OFSC_COMPANY, baseUrl=Config.OFSC_BASE_URL)    
     logger.info("Creating instance connection for {} {}".format(Config.OFSC_COMPANY, Config.OFSC_CLIENT_ID))
 
     # Select fields

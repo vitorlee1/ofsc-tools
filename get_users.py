@@ -32,7 +32,8 @@ def init_script():
     logger.info("Log level is {}".format(args.verbose))
 
     global instance
-    instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, companyName=Config.OFSC_COMPANY)
+    instance = OFSC(clientID=Config.OFSC_CLIENT_ID, secret=Config.OFSC_CLIENT_SECRET, 
+                    companyName=Config.OFSC_COMPANY, baseUrl=Config.OFSC_BASE_URL)
     logger.info("Creating instance connection for {} {}".format(Config.OFSC_COMPANY, Config.OFSC_CLIENT_ID))
 
 

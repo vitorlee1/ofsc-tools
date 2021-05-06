@@ -12,3 +12,4 @@ class Config(object):
     OFSC_COMPANY = os.environ.get('OFSC_COMPANY') or 'sunrise'
     OFSC_ROOT = os.environ.get('OFSC_ROOT') or '' # Resource root external name
     OFSC_CUSTOM_FIELDS = os.environ.get('OFSC_CUSTOM_FIELDS') or ''     # Custom fields relevant for this instance. Comma separated
+    OFSC_BASE_URL = os.environ.get('OFSC_BASE_URL') or "https://{}.etadirect.com".format(OFSC_COMPANY)
