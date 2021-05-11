@@ -8,5 +8,6 @@ COPY update_users.py .
 COPY get_activities.py .
 COPY get_resource_tree.py .
 COPY fix_users_ou.py .
+COPY extract_code.py .
 ENTRYPOINT ["python3"] 
 
