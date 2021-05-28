@@ -13,7 +13,7 @@ def generate_assertion(key, payload):
 
 parser = argparse.ArgumentParser(description='Create assertion key')
 parser.add_argument ("key", help="RSA private key file")
-parser.add_argument ("--payload", help="Payload template. Default: payload.sample", default="payload.sample")
+parser.add_argument ("--payload", help="Payload template. Default: payload.json", default="payload.json")
 parser.add_argument ("--subscriber", help="User. Default: admin")
 args = parser.parse_args()
 
@@ -24,6 +24,6 @@ with open(args.payload) as f:
 if args.subscriber:
     payload_template["sub"] = args.subscriber
 assertion_key = generate_assertion(private_key, payload_template)
-print("assertion: {}".format(assertion_key.decode("utf-8")))
+print("assertion: {}".format(assertion_key))
 
 print(payload_template)

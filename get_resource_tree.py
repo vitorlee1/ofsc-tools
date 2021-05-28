@@ -21,14 +21,14 @@ def init_script():
     global pp
     pp = pprint.PrettyPrinter(indent=4)
 
-    # create logger
+     # create logger
     global logger
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     logger.info("Starting execution: {}".format(args.verbose))
     # create console handler and set level to debug
     ch = logging.StreamHandler()
-    # create formatter
+   # create formatter
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     # add formatter to ch
     ch.setFormatter(formatter)
