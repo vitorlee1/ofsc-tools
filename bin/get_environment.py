@@ -65,6 +65,10 @@ def store_environment(data):
             env = "OFSC_CLIENT_SECRET"
         elif var["key"] == "rootResourceId": 
             env = "OFSC_ROOT"
+        elif var["key"] == "siteID": 
+            env = "OFSC_SITE_ID"      
+        elif var["key"] == "customFields": 
+            env = "OFSC_CUSTOM_FIELDS"             
         if env!="":
             logger.info ("{}={}".format(env, var["value"]))
             env_vars.append ("{}={}\n".format(env, var["value"]))
